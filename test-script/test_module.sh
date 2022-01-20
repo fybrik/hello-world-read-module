@@ -10,7 +10,7 @@ echo $1
 # WORKING_DIR=/home/mohammadtn/hello-world-read-module/test-script
 # WORKING_DIR=$2
 # path to file containing access_key secert_key env var exports
-EXPORT_FILE=/home/mohammadtn/hello-world-read-module/test-script/export.sh
+EXPORT_FILE=test-script/export.sh
 # EXPORT_FILE=$3
 source ${EXPORT_FILE}
 
