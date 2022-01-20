@@ -1,0 +1,8 @@
+name: Test
+on: pull_request
+jobs:
+  test-module:
+    runs-on: ubuntu-latest
+    steps:
+    - name: run-test
+      run: ./test-script/test_module.sh kind19 v 0.6.0 0.6.0
