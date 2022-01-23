@@ -1,5 +1,16 @@
 name: Test
-on: pull_request
+on: 
+  workflow_dispatch:
+    inputs:
+      kind-version:
+        required: true
+        default: 'kind19'
+      fybrik-version:
+        required: true
+        default: '0.6.0'
+      module-version:
+        required: true
+        default: '0.6.0'
 jobs:
   test-module:
     runs-on: ubuntu-latest
@@ -19,4 +30,4 @@ jobs:
         echo "current-context:" $(kubectl config current-context)
         echo "environment-kubeconfig:" ${KUBECONFIG}
     - name: run-test
-      run: ./test-script/test_module.sh kind19 0.6.0 0.6.0
+      run: ./test-script/test_module.sh ${{ github.event.inputs.kind-version }} ${{ github.event.inputs.fybrik-version }} ${{ github.event.inputs.module-version }}
