@@ -11,23 +11,20 @@ on:
       module-version:
         required: true
         default: '0.6.0'
+
+env:
+  GO_VERSION: 1.16
+
 jobs:
   test-module:
     runs-on: ubuntu-latest
     steps:
-    - name: Helm tool installer
-      uses: Azure/setup-helm@v1
+    - uses: actions/checkout@v2
+    - name: Install Go
+      uses: actions/setup-go@v2
       with:
-        version: v3.6.3
-    - uses: azure/setup-kubectl@v2.0
-      id: install
-    - uses: actions/checkout@master
-    - uses: engineerd/setup-kind@v0.5.0
-    - name: Testing
-      run: |
-        kubectl cluster-info
-        kubectl get pods -n kube-system
-        echo "current-context:" $(kubectl config current-context)
-        echo "environment-kubeconfig:" ${KUBECONFIG}
+        go-version: ${{ env.GO_VERSION }}
+    - name: Install tools
+      run: make install-tools
     - name: run-test
-      run: ./test-script/test_module.sh ${{ github.event.inputs.kind-version }} ${{ github.event.inputs.fybrik-version }} ${{ github.event.inputs.module-version }}
+      run: pushd hack/tools && ls && ./test_module.sh ${{ github.event.inputs.kind-version }} ${{ github.event.inputs.fybrik-version }} ${{ github.event.inputs.module-version }} && popd
