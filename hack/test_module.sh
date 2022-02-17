@@ -5,7 +5,7 @@
 set -x
 set -e
 
-source ./common.sh
+source ./tools/common.sh
 
 export WORKING_DIR=test-script
 export ACCESS_KEY=1234
